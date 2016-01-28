@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 20:38:03 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/25 21:27:51 by                  ###   ########.fr       */
+/*   Updated: 2016/01/26 10:09:24 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ int		get_precision(char **str)
 
 char	get_modificateur(char **str)
 {
+	char mod;
+
+	mod = 0;
 	if (**str == 'l' && *((*str) + 1) == 'l')
 	{
 		(*str) += 2;
@@ -103,8 +106,9 @@ char	get_modificateur(char **str)
 	}
 	else if (**str == 'h' || **str == 'z' || **str == 'j' || **str == 'l')
 	{
+		mod = **str;
 		(*str)++;
-		return (**str);
+		return (mod);
 	}
 		return (0);
 }

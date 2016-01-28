@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:20:27 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/25 23:07:29 by                  ###   ########.fr       */
+/*   Updated: 2016/01/28 15:35:27 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,33 @@ int		ft_printf(char *str, ...)
 		str++;
 	}
 	va_end(list);
-	return (cuunt_char + 1);
+	return (cuunt_char);
 }
+
 int main(void)
 {
-PRINT("%o",255)
-PRINT("%.o",255)
-PRINT("%.10o",255)
-PRINT("%.10o",255)
+	PRINT("% +020d",3)
+	PRINT("%- 0.10hho", 0x0abcd4433ll)
+	PRINT("%- 0.10hhx", 0x0abcd4433ll)
+	PRINT("%- #0.10hhd", 0x0abcd4433ll)
+	PRINT("%- #0.10hhC", 0x0abcd4433ll)
+	PRINT("%- #0.10hhu", 0x0abcd4433ll)
+	PRINT("%- #0.10llo", 0x0abcd4433ll)
+	PRINT("%- #0.10llx", 0x0abcd4433ll)
+	PRINT("%- #0.10llu", 0x0abcd4433ll)
+	PRINT("%- #0.10llU", 0x0abcd4433ll)
+	PRINT("%- #0.10lli", 0x0abcd4433ll)
+	PRINT("%- #0.10llo", 0x0abcd4433ll)
+	PRINT("%hhx", 0x012324FFll)
+	PRINT("%hx", 0x012324FFll)
+	PRINT("%jx", 0x012324FFll)
+	PRINT("%zx", 0x012324FFll)
+	PRINT("%#10o",255)
+	PRINT("%-#10o",255)
+	PRINT("%0#10o",255)
+	PRINT("%o",255)
+	PRINT("%.o",255)
+	PRINT("%.10o",255)
 	PRINT("#10o : %#10o ",42)
 	PRINT("#010o : %#010o ",42)
 	PRINT("#-10o : %-#10o ",42)
@@ -126,5 +145,6 @@ PRINT("%.10o",255)
 	PRINT("50u : %50u ",42)
 	PRINT(".2u : %.2u ",42)
 	PRINT(".u : %.0u ",42)
+	PRINT("% 020d",44)
 	return 0;
 }

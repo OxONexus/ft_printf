@@ -6,14 +6,14 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 22:09:46 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/25 23:05:23 by                  ###   ########.fr       */
+/*   Updated: 2016/01/28 15:31:21 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-int get_str_len_of_num(unsigned int number, int base)
+int get_str_len_of_num(unsigned long long int number, int base)
 {
 	if (base > 0 && number >= (unsigned int)base)
 		return(1 + get_str_len_of_num(number / base, base));
@@ -21,7 +21,7 @@ int get_str_len_of_num(unsigned int number, int base)
 		return (1);
 }
 
-int power_base(int nb, int power, int nbsave)
+int power_base(long long int nb, int power,long long int nbsave)
 {
 	if (power == 0)
 		return (1);
@@ -30,16 +30,46 @@ int power_base(int nb, int power, int nbsave)
 	return (power_base(nb * nbsave, power - 1, nbsave));
 }
 
-int		get_str(unsigned int number, int base, int i)
+int		get_str(long long int number, int base, int i)
 {
 	if (i == 1)
 		return (number % base);
 	else
 		return (get_str(number / base, base, i - 1));
 }
+int		get_unsigned_str(unsigned long long int number, int base, int i)
+{
+	if (i == 1)
+		return (number % base);
+	else
+		return (get_unsigned_str(number / base, base, i - 1));
+}
 
+char *ft_unsigned_itoa_base(unsigned long long int number, int base, char sep)
+{
+	char *str;
+	char *tmp;
+	int len;
 
-char *ft_itoa_base(unsigned int number, int base, char sep)
+	len = get_str_len_of_num(number, base);
+	str = (char*)malloc(sizeof(char) * len + 1);
+	tmp = str;
+	str[len] = '\0';
+	while (len > 0)
+	{
+
+		*str = get_unsigned_str(number, base, len);
+		if (*str > 9)
+			*str += sep - 10;
+		else
+			*str += '0';
+		str++;
+		len--;
+	}
+	return (tmp);
+}
+
+char *ft_itoa_base(long long int number, int base, char sep)
 {
 	char *str;
 	char *tmp;
@@ -86,13 +116,14 @@ char *apply_flag(t_data *data, char *str)
 	add = ft_strnew(3);
 	if (isintab(data->drapeau,'#'))
 		str = apply_diezzz(data, str);
-	if (*str != '-' && isintab(data->drapeau, '+') && (data->type != 'c' && data->type != 's'))
+	if (*str != '-' && isintab(data->drapeau, '+') && (data->type != 'c' &&
+		data->type != 's'))
 	{
 		*add = '+';
 		str = ft_strjoin(add,str);
 	}
 	if (isintab(data->drapeau, ' ') && (data->type != 'c' && data->type != 's')
-		&& data->comp == 0)
+		&& (*str != '-' && *str != '+'))
 	{
 		*add = ' ';
 		str = ft_strjoin(add,str);

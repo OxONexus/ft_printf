@@ -1,0 +1,47 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: apaget <marvin@42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2015/12/09 14:32:52 by apaget            #+#    #+#              #
+#*   Updated: 2016/01/18 22:49:41 by                  ###   ########.fr       *#
+#                                                                              #
+# **************************************************************************** #
+
+FLAG = -Wall -Wextra -Werror
+
+NAME = ft_printf
+
+LIB = libft/libft.a
+
+SRC =	ft_printf.c 		\
+		get_opt.c 			\
+		get_str_from_num.c	\
+		itoabase.c 			\
+		make_opt.c 			\
+		make_str.c 			\
+
+OBJ = $(SRC:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	@gcc -o $(OBJ) -I. $(LIB) $(FLAG)
+
+%.o: %.c
+	@gcc -c $< -o $@ $(FLAG)
+	@echo "-"
+
+clean:
+	@rm -f $(OBJ)
+	@echo "*.o deleted"
+
+fclean: clean
+	@rm -f $(NAME)
+	@echo "ft_printf deleted"
+
+re: fclean all
+
+.PHONY: all, clean, fclean, kill, re

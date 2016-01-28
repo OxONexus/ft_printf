@@ -6,26 +6,49 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:51:28 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/25 23:14:39 by                  ###   ########.fr       */
+/*   Updated: 2016/01/28 15:37:27 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <ctype.h>
+
+
+unsigned long long int cast_unsigned_number(t_data *data, unsigned long long nb)
+{
+	if (data->modificateur == LL)
+		nb = (unsigned long long)nb;
+	else if (data->modificateur == 'l')
+		nb = (unsigned long)nb;
+	else if (data->modificateur == 'h')
+		nb = (unsigned short)nb;
+	else if (data->modificateur == HH)
+		nb = (unsigned char)nb;
+	else if (data->modificateur == 'z')
+		nb = (size_t)nb;
+	else if (data->modificateur == 'j')
+		nb = (unsigned long long)nb;
+	else
+		nb = (unsigned)nb;
+	return (nb);
+}
 
 long long int cast_number(t_data *data, long long int cast)
 {
-	if (data->modificateur == 'h')
-		cast = (short)cast;
-	if (data->modificateur == HH)
-		cast = (char)cast;
 	if (data->modificateur == LL)
 		cast = (long long)cast;
-	if (data->modificateur == 'l')
+	else if (data->modificateur == 'l')
 		cast = (long)cast;
-	if (data->modificateur == 'z')
-		cast = (size_t)cast;
-	if (data->modificateur == 'j')
+	else if (data->modificateur == 'h')
+		cast = (short)cast;
+	else if (data->modificateur == HH)
 		cast = (char)cast;
+	else if (data->modificateur == 'z')
+		cast = (size_t)cast;
+	else if (data->modificateur == 'j')
+		cast = (long long)cast;
+	else
+		cast = (int)cast;
 	return (cast);
 }
 
@@ -37,23 +60,31 @@ void	get_nb_len(t_data *data, char *src)
 char	*get_var(t_data *data, va_list *list)
 {
 	char *str;
-	int cast;
+	long long int cast;
+	unsigned long long un_cast;;
 
-	if (ft_strchr("diDxXouUc", data->type) != NULL)
+	cast = 0;
+	if (ft_strchr("diDoc", data->type) != NULL)
 	{
-		cast = cast_number(data, va_arg(*list, int));
+		cast = va_arg(*list, long long int);
+		cast = cast_number(data, cast);
 		if (data->type == 'd' || data->type == 'i' || data->type == 'D')
 			str = get_integer(cast, 10, 'a');
-		if (data->type == 'x')
-			str = get_integer((unsigned int)cast, 16,'a');
-		if (data->type == 'X')
-			str = get_integer((unsigned int)cast , 16,'A');
 		if (data->type == 'o' || data->type == 'O')
-			str = get_integer((unsigned int)cast , 8,'a');
-		if (data->type == 'u' || data->type == 'U')
-			str = get_unsigned_integer(cast, 10,'a');
+			str = get_integer(cast , 8,'a');
 		if (data->type == 'c')
 			str = get_char(cast);
+	}
+	else if (ft_strchr("xXuU", data->type) != NULL)
+	{
+		un_cast = va_arg(*list, unsigned long long);
+		un_cast = cast_unsigned_number(data, un_cast);
+		if (data->type == 'x')
+			str = ft_unsigned_itoa_base(un_cast, 16, 'a');
+		if (data->type == 'X')
+			str = ft_unsigned_itoa_base(un_cast, 16, 'A');
+		if (data->type == 'u' || data->type == 'U')
+			str = ft_unsigned_itoa_base(un_cast, 10, 'a');
 	}
 	else
 	{
@@ -62,7 +93,7 @@ char	*get_var(t_data *data, va_list *list)
 		if (data->type == 's')
 		{
 			if ((str = va_arg(*list, char*)) == NULL)
-			str = ft_strdup("(null)");
+				str = ft_strdup("(null)");
 		}
 	}
 	return (str);
@@ -157,8 +188,8 @@ void psuh_right(t_data *data, char *str, char *new)
 
 	c = ' ';
 
-	if ((*str == '-' || *str == '+') && data->comp == 1 && data->type != 'c' &&
-		data->precision != -1)
+	if ((*str == '-' || *str == '+' || *str == ' ') && data->comp == 1 &&
+			data->type != 'c' && data->precision != -1)
 	{
 		*new = *str;
 		ft_memset(new + 1, '0', data->length - ft_strlen(str));
@@ -197,7 +228,7 @@ char *apply_diezzz(t_data *data, char *str)
 		*add = '0';
 		*(add + 1) = 'X';
 	}
-	if (data->type == 'o' && data->nb_len > ft_strlen(str))
+	if (data->type == 'o' && data->precision <= data->nb_len)
 	{
 		*add = '0';
 	}
