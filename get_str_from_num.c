@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:05:58 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/28 14:42:26 by                  ###   ########.fr       */
+/*   Updated: 2016/01/28 19:30:33 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,12 @@ char *get_char(char c)
 	str = ft_strnew(2);
 	*str = c;
 	return (str);
+}
+
+int get_str_len_of_num(unsigned long long int number, int base)
+{
+	if (base > 0 && number >= (unsigned int)base)
+		return(1 + get_str_len_of_num(number / base, base));
+	else
+		return (1);
 }

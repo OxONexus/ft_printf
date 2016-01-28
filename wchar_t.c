@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 01:38:26 by                   #+#    #+#             */
-/*   Updated: 2016/01/19 03:58:43 by                  ###   ########.fr       */
+/*   Updated: 2016/01/28 19:34:15 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,28 @@ wchar_t	*ft_wstr_new(int length)
 		i++;
 	}
 	return (tmp);
+}
+
+void	make_wchar(t_data *data, va_list *list)
+{
+	wchar_t *str;
+
+	str = NULL;
+	if (data->length > 1)
+	{
+		str = (wchar_t*)malloc(sizeof(wchar_t) * (data->length + 1));
+		ft_memset(str, 0, sizeof(wchar_t) * (data->length + 1));
+		if (isintab(data->drapeau, '-'))
+		{
+			str[0] = va_arg(*list, wchar_t);
+			ft_memset(str + 1, ' ', sizeof(wchar_t) * (data->length - 1));
+			ft_putwstr(str);
+		}
+		else
+		{
+			ft_memset(str,' ', sizeof(wchar_t) * (data->length - 1));
+			str[data->length - 1] = va_arg(*list, wchar_t);
+			ft_putwstr(str);
+		}
+	}
 }

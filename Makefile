@@ -6,7 +6,7 @@
 #    By: apaget <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/09 14:32:52 by apaget            #+#    #+#              #
-#*   Updated: 2016/01/28 12:54:53 by                  ###   ########.fr       *#
+#*   Updated: 2016/01/28 19:46:49 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,9 @@ SRC = ft_printf.c		\
 	  make_opt.c		\
 	  make_str.c		\
 	  make_wstr.c		\
+	  apply_fct.c		\
+	  unsigned_var.c	\
+	  string_tool.c		\
 	  wchar_t.c			\
 	  libft/ft_atoi.c 			\
 	  libft/ft_bzero.c 			\

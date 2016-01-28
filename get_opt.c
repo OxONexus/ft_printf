@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 20:38:03 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/26 10:09:24 by                  ###   ########.fr       */
+/*   Updated: 2016/01/28 19:29:58 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-
-
-void	addtotab(char *tab, char c)
-{
-	int i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (tab[i] == c)
-		return;
-		i++;
-	}
-	i = 0;
-	while (i < 4)
-	{
-		if (tab[i] == 0)
-		{
-			tab[i] = c;
-			return;
-		}
-		i++;
-	}
-}
 
 char	*get_drapeau(t_data *data, char **str)
 {
@@ -112,6 +88,7 @@ char	get_modificateur(char **str)
 	}
 		return (0);
 }
+
 char	get_type(char **str)
 {
 	int i;

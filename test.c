@@ -3,6 +3,7 @@
 
 int main() {
   int x;
+  ft_printf("%hhS, %hhS", 0, L"米米");
   ft_printf("llu %llu\n", -0xFFFFFFFFFFFFll);
   ft_printf(" %llx\n", 0x0123456789ABCDEll);
   ft_printf(" % d",-100);

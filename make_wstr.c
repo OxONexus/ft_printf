@@ -6,40 +6,11 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 16:33:14 by                   #+#    #+#             */
-/*   Updated: 2016/01/22 18:29:13 by                  ###   ########.fr       */
+/*   Updated: 2016/01/28 19:35:56 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	make_wchar(t_data *data, va_list *list)
-{
-	wchar_t *str;
-
-	str = NULL;
-	if (data->type == 'C')
-	{
-		if (data->length > 1)
-		{
-			str = (wchar_t*)malloc(sizeof(wchar_t) * (data->length + 1));
-			ft_memset(str, 0, sizeof(wchar_t) * (data->length + 1));
-			if (isintab(data->drapeau, '-'))
-			{
-				str[0] = va_arg(*list, wchar_t);
-				ft_memset(str + 1, ' ', sizeof(wchar_t) * (data->length - 1));
-				ft_putwstr(str);
-			}
-			else
-			{
-				ft_memset(str,' ', sizeof(wchar_t) * (data->length - 1));
-				str[data->length - 1] = va_arg(*list, wchar_t);
-				ft_putwstr(str);
-			}
-		}
-		else
-			ft_putwchar_t(va_arg(*list, wchar_t));
-	}
-}
 
 int		make_wstr(t_data *data, va_list *list)
 {
@@ -49,22 +20,23 @@ int		make_wstr(t_data *data, va_list *list)
 	if (data->type == 'C')
 	{
 		make_wchar(data, list);
-		return (data->length);
+		return (data->length <= 0 ? 1 : data->length);
 	}
 	else if (data->type == 'S')
 		return (make_wwwwwwstr(data, list));
 }
+
 wchar_t	*apply_wprecision(t_data *data, wchar_t *str)
 {
 	wchar_t *new;
-	int length;
+	int		length;
 
 	length = ft_wstrlen(str);
 
 	if (data->precision != -1 && data->precision < length && data->type == 'S')
 	{
 		new = ft_wstr_new(data->precision);
-		ft_memcpy(new,str,data->precision * sizeof(wchar_t));
+		ft_memcpy(new, str, data->precision * sizeof(wchar_t));
 		return (new);
 	}
 	else
@@ -75,10 +47,10 @@ wchar_t	*apply_wprecision(t_data *data, wchar_t *str)
 	return (new);
 }
 
-int	apply_wlength(t_data *data, wchar_t *str)
+int		apply_wlength(t_data *data, wchar_t *str)
 {
-	wchar_t *new;
-	int length;
+	wchar_t	*new;
+	int		length;
 
 	length = ft_wstrlen(str);
 	new = (wchar_t*)malloc(sizeof(wchar_t) * (data->length + 1));
@@ -91,7 +63,7 @@ int	apply_wlength(t_data *data, wchar_t *str)
 	}
 	else
 	{
-		ft_memset(new,' ', sizeof(wchar_t) * (data->length - length));
+		ft_memset(new, ' ', sizeof(wchar_t) * (data->length - length));
 		ft_memcpy(new + data->length - length, str, length * sizeof(wchar_t));
 		ft_putwstr(new);
 	}
@@ -100,13 +72,19 @@ int	apply_wlength(t_data *data, wchar_t *str)
 	return (length);
 }
 
-int make_wwwwwwstr(t_data *data, va_list *list)
+int		make_wwwwwwstr(t_data *data, va_list *list)
 {
-	wchar_t *str;
-	wchar_t *new;
-	int length;
+	wchar_t	*str;
+	wchar_t	*new;
+	wchar_t	*tmp;
+	int		length;
 
-	str = apply_wprecision(data,va_arg(*list, wchar_t*));
+	if ((tmp = va_arg(*list, wchar_t*)) == NULL)
+	{
+		ft_putstr("(null)");
+		return (6);
+	}
+	str = apply_wprecision(data, tmp);
 	length = ft_wstrlen(str);
 	if (data->length > length)
 		return (apply_wlength(data, str));
