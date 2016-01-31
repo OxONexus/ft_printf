@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 21:22:45 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/28 19:47:41 by                  ###   ########.fr       */
+/*   Updated: 2016/01/31 18:55:41 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include "libft/includes/libft.h"
+#include <wchar.h>
+#include <locale.h>
 # define LL 2
 # define L 1
 # define H 3
@@ -75,5 +77,6 @@ char		*get_signed_var(t_data *data, va_list *list);
 void		addtotab(char *tab, char c);
 void		make_wchar(t_data *data, va_list *list);
 char		*get_unsigned_var(t_data *data, va_list *list);
+void		print_wchar(wchar_t c);
 
 #endif

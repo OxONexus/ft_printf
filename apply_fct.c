@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 19:17:33 by                   #+#    #+#             */
-/*   Updated: 2016/01/28 19:21:57 by                  ###   ########.fr       */
+/*   Updated: 2016/01/31 19:45:40 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*get_var(t_data *data, va_list *list)
 {
 	char *str;
 
-	if (ft_strchr("dioOc", data->type) != NULL)
+	if (ft_strchr("dicoO", data->type) != NULL)
 		str = get_signed_var(data, list);
 	else if (ft_strchr("xDXuU", data->type) != NULL)
 		str = get_unsigned_var(data, list);

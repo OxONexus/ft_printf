@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 16:33:14 by                   #+#    #+#             */
-/*   Updated: 2016/01/28 19:35:56 by                  ###   ########.fr       */
+/*   Updated: 2016/01/31 19:46:36 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ wchar_t	*apply_wprecision(t_data *data, wchar_t *str)
 	if (data->precision != -1 && data->precision < length && data->type == 'S')
 	{
 		new = ft_wstr_new(data->precision);
-		ft_memcpy(new, str, data->precision * sizeof(wchar_t));
+		ft_memcpy(new, str, data->precision);
 		return (new);
 	}
 	else

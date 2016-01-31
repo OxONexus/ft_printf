@@ -6,7 +6,7 @@
 #    By: apaget <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/09 14:32:52 by apaget            #+#    #+#              #
-#*   Updated: 2016/01/28 19:46:49 by                  ###   ########.fr       *#
+#*   Updated: 2016/01/28 20:02:12 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,11 +109,15 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo "ft_printf.a deleted"
 
-test:
-	gcc ft_printf.c get_opt.c get_str_from_num.c itoabase.c make_opt.c make_str.c make_wstr.c test.c wchar_t.c libft/libft.a -g
+test1:
+	gcc apply_fct.c ft_printf.c get_opt.c get_str_from_num.c itoabase.c make_opt.c make_str.c make_wstr.c string_tool.c wchar_t.c unsigned_var.c test.c -I. libft/libft.a
 	./a.out > ft_printf
 	mgdiff ft_printf printf
 	rm a.out
+
+test2:
+	gcc apply_fct.c ft_printf.c get_opt.c get_str_from_num.c itoabase.c make_opt.c make_str.c make_wstr.c string_tool.c wchar_t.c unsigned_var.c main.c -I. libft/libft.a
+	./a.out
 
 debug:
 	gcc ft_printf.c get_opt.c get_str_from_num.c itoabase.c make_opt.c make_str.c make_wstr.c test.c wchar_t.c libft/libft.a -g

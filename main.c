@@ -2,6 +2,7 @@
 
 int main(int argc, const char *argv[])
 {
+	printf("%012o\n\n" -255);
 	ft_printf("%d\n", ft_printf("2chiffre 1 %+050d chiffre 2 %+050d\n", -42, 42));
 	printf("%d\n\n", printf("2chiffre 1 %+   d chiffre 2 %+ d\n\n", -42, 42));
 

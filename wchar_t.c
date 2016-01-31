@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 01:38:26 by                   #+#    #+#             */
-/*   Updated: 2016/01/28 19:34:15 by                  ###   ########.fr       */
+/*   Updated: 2016/01/31 18:40:31 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,11 @@
 #include <ctype.h>
 #include <unistd.h>
 
-void	ft_putwchar_t(wchar_t c)
-{
-	write(1, &c, 1);
-}
-
 void	ft_putwstr(wchar_t *str)
 {
 	while (*str)
 	{
-		write(1, str, 1);
+		print_wchar(*str);
 		str++;
 	}
 }
@@ -76,4 +71,47 @@ void	make_wchar(t_data *data, va_list *list)
 			ft_putwstr(str);
 		}
 	}
+}
+
+
+
+
+void		draw(int nb, unsigned int c)
+{
+	int i;
+	char *str = ft_unsigned_itoa_base(c, 2, 'a');
+	printf("%s\n",str);
+	free(str);
+	c >> 8;
+	str = ft_unsigned_itoa_base(c, 2, 'a');
+	printf("%s\n",str);
+	free(str);
+	c >> 8;
+	str = ft_unsigned_itoa_base(c, 2, 'a');
+	printf("%s\n",str);
+	free(str);
+	c >> 8;
+	str = ft_unsigned_itoa_base(c, 2, 'a');
+	printf("%s\n",str);
+	free(str);
+	c >> 8;
+	str = ft_unsigned_itoa_base(c, 2, 'a');
+	printf("%s\n",str);
+	free(str);
+}
+
+void		print_wchar(wchar_t c)
+{
+	unsigned int wchar;
+	char *str2 = ft_unsigned_itoa_base(0xc080,2,0);
+
+	wchar = (unsigned int)c;
+	if (c <= 0x7f)
+		ft_putchar((char)wchar);
+	else if (c <= 0x7ff)
+		print_2byte((unsigned int)wchar);
+	else if (c <= 0xffff)
+		print_3byte((unsigned int)wchar);
+	else if (c <= 0x1fffff)
+		print_4byte((unsigned int)wchar);
 }

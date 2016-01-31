@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 22:09:46 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/28 19:31:38 by                  ###   ########.fr       */
+/*   Updated: 2016/01/28 20:13:22 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,11 @@ int		get_str(long long int number, int base, int i)
 		return (get_str(number / base, base, i - 1));
 }
 
-
-
-char *ft_itoa_base(long long int number, int base, char sep)
+char	*ft_itoa_base(long long int number, int base, char sep)
 {
-	char *str;
-	char *tmp;
-	int len;
+	char	*str;
+	char	*tmp;
+	int		len;
 
 	len = get_str_len_of_num(number, base);
 	str = (char*)malloc(sizeof(char) * len + 1);
@@ -69,4 +67,29 @@ void	*les_flics(t_data *data, char *str)
 		str[1] = str[i];
 		str[i] = '0';
 	}
+	i = 0;
+	if (*str == 0)
+	{
+		while (str[i] == 0 && str[i])
+			i++;
+		if (str[i] == '-'|| str[i] == '+' || str[i] == ' ')
+		{
+			str[0] = str[i];
+			str[i] = 0;
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
