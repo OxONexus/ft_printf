@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:05:58 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/28 19:30:33 by                  ###   ########.fr       */
+/*   Updated: 2016/02/02 04:33:24 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*get_integer(long long int number,int base, char sep)
 {
 	char *str;
-	long long int tmp;
+	unsigned long long int tmp;
 
 	str = (char *)malloc(sizeof(char) * 2);
 	ft_bzero(str, 2);
@@ -23,10 +23,10 @@ char	*get_integer(long long int number,int base, char sep)
 	{
 		tmp = -number;
 		str[0] = '-';
-		str = ft_strjoinfree(str,ft_itoa_base(tmp, base, sep));
+		str = ft_strjoinfree(str,ft_unsigned_itoa_base(tmp, base, sep));
 	}
 	else
-		str = ft_itoa_base(number, base, sep);
+		str = ft_unsigned_itoa_base(number, base, sep);
 	return (str);
 }
 
@@ -39,11 +39,11 @@ char	*get_ptr(void *ptr)
 	str = ft_strnew(3);
 	str[0] = '0';
 	str[1] = 'x';
-	str = ft_strjoinfree(str, ft_itoa_base((long long int)ptr, 16, 'a'));
+	str = ft_strjoinfree(str, ft_unsigned_itoa_base((long long int)ptr, 16, 'a'));
 	}
 	else
 	{
-		str = ft_strdup("(nil)");
+		str = ft_strdup("0x0");
 	}
 	return (str);
 }
@@ -54,6 +54,7 @@ char *get_char(char c)
 
 	str = ft_strnew(2);
 	*str = c;
+	//printf("debug str : %s\n",str);
 	return (str);
 }
 

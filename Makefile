@@ -20,6 +20,7 @@ SRC = ft_printf.c		\
 	  itoabase.c		\
 	  make_opt.c		\
 	  make_str.c		\
+	  print_wchar.c		\
 	  make_wstr.c		\
 	  apply_fct.c		\
 	  unsigned_var.c	\

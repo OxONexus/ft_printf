@@ -6,26 +6,47 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 17:35:51 by                   #+#    #+#             */
-/*   Updated: 2016/01/31 18:49:06 by                  ###   ########.fr       */
+/*   Updated: 2016/02/02 06:53:13 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <wchar.h>
 #include <locale.h>
+#include <limits.h>
 #include "ft_printf.h"
-
-void		print_wchar(wchar_t c);
+#include <stdio.h>
 
 int main(int argc, const char *argv[])
 {
+	/*
 	char* l = setlocale(LC_ALL, "");
 	if (l == NULL) {
 		printf("Locale not set\n");
 	} else {
 		printf("Locale set to %s\n", l);
 	}
-	printf("%S\n",L"我是一只猫。");
-	ft_printf("%S",L"我是一只猫。");
+
+	//x = printf("%C\n",L'是');
+	//
+	*//*
+	y = ft_printf("%S",L"是");
+	printf("\n");
+	x = printf(7777,L"是");
+	printf("\n");
+
+	printf("printf : %d\n",x);
+	printf("ft_printf : %d\n",y);
+	printf("\n");
+	printf("\n");
+	*/
+	int x,y;
+	char c;
+	char *str = "%d";
+	y = ft_printf("%-10d\n",42);
+	x = printf("%-10d\n",42);
+	printf("prinf  %d et  ft %d\n",x,y);
 	return 0;
 }
+
+// + ignorer xXoOpuUsScC

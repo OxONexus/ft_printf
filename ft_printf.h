@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 21:22:45 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/31 18:55:41 by                  ###   ########.fr       */
+/*   Updated: 2016/02/01 18:08:53 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		init_data(t_data *data);
 int			make_str(t_data *data, va_list *list);
 void		psuh_right(t_data *data, char *str, char *new);
 void		ft_putwchar_t(wchar_t c);
-void		ft_putwstr(wchar_t *str);
+int			ft_putwstr(wchar_t *str);
 wchar_t		*ft_wstr_new(int length);
 int			ft_wstrlen(wchar_t *str);
 wchar_t		*apply_wprecision(t_data *data, wchar_t *str);
@@ -75,8 +75,12 @@ char		*ft_unsigned_itoa_base(unsigned long long int number, int base, char sep);
 int			get_unsigned_str(unsigned long long int number, int base, int i);
 char		*get_signed_var(t_data *data, va_list *list);
 void		addtotab(char *tab, char c);
-void		make_wchar(t_data *data, va_list *list);
+int			make_wchar(t_data *data, va_list *list);
 char		*get_unsigned_var(t_data *data, va_list *list);
-void		print_wchar(wchar_t c);
+int			print_wchar(wchar_t c);
+void		print_2byte(unsigned int c);
+void		print_3byte(unsigned int c);
+void		print_4byte(unsigned int c);
+int		ft_printf(char *str, ...);
 
 #endif

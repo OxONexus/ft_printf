@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 22:09:46 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/28 20:13:22 by                  ###   ########.fr       */
+/*   Updated: 2016/02/02 07:05:10 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_itoa_base(long long int number, int base, char sep)
 	{
 
 		*str = get_str(number, base, len);
-		if (*str > 9)
+		if (*str > '9')
 			*str += sep - 10;
 		else
 			*str += '0';
@@ -54,42 +54,96 @@ char	*ft_itoa_base(long long int number, int base, char sep)
 	return (tmp);
 }
 
-void	*les_flics(t_data *data, char *str)
-{
-	int i;
 
-	i = 0;
-	if ((data->type == 'x' || data->type == 'X') && data->length >
-		data->nb_len + 2 && data->comp == 1 && isintab(data->drapeau, '#'))
+int		is_null_ptr(char *ptr)
+{
+	while (*ptr)
 	{
-		while (str[i] == '0' && str[i])
-			i++;
-		str[1] = str[i];
-		str[i] = '0';
+		if (*ptr != ' ' && *ptr != '0' && *ptr != 'x' && *ptr != 'X')
+			return (0);
+		ptr++;
 	}
-	i = 0;
-	if (*str == 0)
-	{
-		while (str[i] == 0 && str[i])
-			i++;
-		if (str[i] == '-'|| str[i] == '+' || str[i] == ' ')
-		{
-			str[0] = str[i];
-			str[i] = 0;
-		}
-	}
+	return (1);
 }
 
 
+void	corrige_Ox(char *str)
+{
+	int i;
+	char tmp;
 
+	i = 0;
 
+	if (isintab(str,'x') || isintab(str,'X'))
+	{
+		while (str[i] != 'x' && str[i] != 'X')
+			i++;
+		tmp = str[1];
+		str[1] = str[i];
+		str[i] = tmp;
+	}
+}
 
+void	corrige_sign(char *str)
+{
+	char *tmp;
+	int i;
 
+	i = 0;
+	if (isintab(str,'-') || isintab(str,' ') || isintab(str,'-'))
+	{
+		if(*str =='0')
+		{
+			while (str[i] != '-' && str[i] != ' ' && str[i] != '+')
+				i++;
+			*str = str[i];
+			str[i] = '0';
+		}
+	}
+}
+void	*les_flics(t_data *data, char *str)
+{
+	int i;
+	char c;
 
-
-
-
-
-
-
-
+	i = 0;
+	if (isintab("pxX", data->type))
+		corrige_Ox(str);
+	else if (isintab("id", data->type))
+		corrige_sign(str);
+	/*
+	   if ((data->type == 'x' || data->type == 'X') && (data->length >
+	   data->nb_len + 2 && data->comp == 1 && isintab(data->drapeau, '#')))
+	   {
+	   while (str[i] == '0' && str[i])
+	   i++;
+	   str[1] = str[i];
+	   str[i] = '0';
+	   }
+	   i = 0;
+	   if (*str == '0' || *str == ' ')
+	   {
+	   while ((str[i] == '0' || str[i] == ' ') && str[i])
+	   i++;
+	   if (str[i] == '-'|| str[i] == '+' || str[i] == ' ')
+	   {
+	   c = str[i];
+	   if (*str == '0')
+	   {
+	   str[0] = str[i];
+	   str[i] = '0';
+	   }
+	   else if (data->type == 'o' || data->type == 'O')
+	   {
+	   i = 0;
+	   while (str[i] == ' ' && str[i])
+	   i++;
+	   str[i - 1] = c;
+	   while (str[i] != c)
+	   i++;
+	   str[i] = '0';
+	   }
+	   }
+	   }
+	   */
+}

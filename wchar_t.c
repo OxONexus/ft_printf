@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 01:38:26 by                   #+#    #+#             */
-/*   Updated: 2016/01/31 18:40:31 by                  ###   ########.fr       */
+/*   Updated: 2016/02/02 02:49:45 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,22 @@
 #include <ctype.h>
 #include <unistd.h>
 
-void	ft_putwstr(wchar_t *str)
+int		ft_putwstr(wchar_t *str)
 {
+	int count;
+	int i;
+
+	count = 0;
+	i = 0;
 	while (*str)
 	{
-		print_wchar(*str);
+		if((i = print_wchar(*str)) == -1)
+			return (-1);
+		else
+			count += i;
 		str++;
 	}
+	return (count);
 }
 int		ft_wstrlen(wchar_t *str)
 {
@@ -49,10 +58,24 @@ wchar_t	*ft_wstr_new(int length)
 	return (tmp);
 }
 
-void	make_wchar(t_data *data, va_list *list)
+wchar_t cast_wchar(t_data *data, wchar_t c)
+{
+	if (data->modificateur == HH)
+		c = (char)c;
+	return (c);
+}
+
+int		make_wchar(t_data *data, va_list *list)
 {
 	wchar_t *str;
+	wchar_t tmp;
 
+	if((tmp = va_arg(*list, wchar_t)) == 0)
+	{
+		write(1, &tmp, 1);
+		return (1);
+	}
+	//tmp = cast_wchar(data, tmp);
 	str = NULL;
 	if (data->length > 1)
 	{
@@ -60,58 +83,53 @@ void	make_wchar(t_data *data, va_list *list)
 		ft_memset(str, 0, sizeof(wchar_t) * (data->length + 1));
 		if (isintab(data->drapeau, '-'))
 		{
-			str[0] = va_arg(*list, wchar_t);
+			str[0] = tmp;
 			ft_memset(str + 1, ' ', sizeof(wchar_t) * (data->length - 1));
 			ft_putwstr(str);
 		}
 		else
 		{
 			ft_memset(str,' ', sizeof(wchar_t) * (data->length - 1));
-			str[data->length - 1] = va_arg(*list, wchar_t);
+			str[data->length - 1] = tmp;
 			ft_putwstr(str);
 		}
 	}
+	else
+	{
+		str = ft_wstr_new(1);
+		*str = tmp;
+		*(str + 1) = L'\0';
+		return(ft_putwstr(str));
+	}
+	return (1);
 }
 
 
-
-
-void		draw(int nb, unsigned int c)
-{
-	int i;
-	char *str = ft_unsigned_itoa_base(c, 2, 'a');
-	printf("%s\n",str);
-	free(str);
-	c >> 8;
-	str = ft_unsigned_itoa_base(c, 2, 'a');
-	printf("%s\n",str);
-	free(str);
-	c >> 8;
-	str = ft_unsigned_itoa_base(c, 2, 'a');
-	printf("%s\n",str);
-	free(str);
-	c >> 8;
-	str = ft_unsigned_itoa_base(c, 2, 'a');
-	printf("%s\n",str);
-	free(str);
-	c >> 8;
-	str = ft_unsigned_itoa_base(c, 2, 'a');
-	printf("%s\n",str);
-	free(str);
-}
-
-void		print_wchar(wchar_t c)
+int		print_wchar(wchar_t c)
 {
 	unsigned int wchar;
-	char *str2 = ft_unsigned_itoa_base(0xc080,2,0);
 
 	wchar = (unsigned int)c;
 	if (c <= 0x7f)
-		ft_putchar((char)wchar);
+	{
+		ft_putchar(c);
+		return (1);
+	}
 	else if (c <= 0x7ff)
+	{
 		print_2byte((unsigned int)wchar);
+		return (2);
+	}
 	else if (c <= 0xffff)
+	{
 		print_3byte((unsigned int)wchar);
+		return (3);
+	}
 	else if (c <= 0x1fffff)
+	{
 		print_4byte((unsigned int)wchar);
+		return (4);
+	}
+	else
+		return (-1);
 }

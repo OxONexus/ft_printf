@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 19:22:48 by                   #+#    #+#             */
-/*   Updated: 2016/01/28 19:31:52 by                  ###   ########.fr       */
+/*   Updated: 2016/02/02 01:26:42 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 unsigned long long int cast_unsigned_number(t_data *data, unsigned long long nb)
 {
-	if (data->modificateur == LL)
+	if (isintab("OU",data->type))
+		nb = (unsigned long long)nb;
+	else if (data->modificateur == LL)
 		nb = (unsigned long long)nb;
 	else if (data->modificateur == 'l')
 		nb = (unsigned long)nb;
@@ -46,6 +48,8 @@ char	*get_unsigned_var(t_data *data, va_list *list)
 		str = ft_unsigned_itoa_base(un_cast, 16, 'A');
 	else if (data->type == 'u' || data->type == 'U' || data->type == 'D')
 		str = ft_unsigned_itoa_base(un_cast, 10, 'a');
+	else if (data->type == 'o' || data->type == 'O')
+		str = ft_unsigned_itoa_base(un_cast, 8, 'a');
 	return (str);
 }
 

@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 20:38:03 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/28 19:29:58 by                  ###   ########.fr       */
+/*   Updated: 2016/02/02 03:21:53 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	get_modificateur(char **str)
 char	get_type(char **str)
 {
 	int i;
-	char type[] = "S C DspdioOUuxXc";
+	char type[] = "SCDspdioOUuxXc";
 
 	i = 0;
 	while(**str == ' ')

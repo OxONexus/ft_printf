@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 16:33:14 by                   #+#    #+#             */
-/*   Updated: 2016/01/31 19:46:36 by                  ###   ########.fr       */
+/*   Updated: 2016/02/02 03:17:43 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ int		make_wstr(t_data *data, va_list *list)
 	wchar_t *str;
 
 	str = NULL;
-	if (data->type == 'C')
+	if (data->type == 'C' || data->type == 'c')
 	{
-		make_wchar(data, list);
-		return (data->length <= 0 ? 1 : data->length);
+		return (make_wchar(data, list));
 	}
-	else if (data->type == 'S')
+	else
 		return (make_wwwwwwstr(data, list));
 }
 
@@ -68,7 +67,7 @@ int		apply_wlength(t_data *data, wchar_t *str)
 		ft_putwstr(new);
 	}
 	length = ft_wstrlen(new);
-	free(new);
+	//free(new);
 	return (length);
 }
 
@@ -85,11 +84,10 @@ int		make_wwwwwwstr(t_data *data, va_list *list)
 		return (6);
 	}
 	str = apply_wprecision(data, tmp);
-	length = ft_wstrlen(str);
 	if (data->length > length)
 		return (apply_wlength(data, str));
 	else
-		ft_putwstr(str);
-	free(str);
+		length = ft_putwstr(str);
+	//free(str);
 	return (length);
 }
