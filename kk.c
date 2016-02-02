@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 17:35:51 by                   #+#    #+#             */
-/*   Updated: 2016/02/02 06:53:13 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/02 08:52:30 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int main(int argc, const char *argv[])
 	int x,y;
 	char c;
 	char *str = "%d";
-	y = ft_printf("%-10d\n",42);
-	x = printf("%-10d\n",42);
+	y = ft_printf("%3c\n",0);
+	x = printf("%3c\n",0);
 	printf("prinf  %d et  ft %d\n",x,y);
 	return 0;
 }

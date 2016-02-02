@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:05:58 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/02 04:33:24 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/02 07:22:05 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*get_integer(long long int number,int base, char sep)
 {
 	char *str;
+	char *ito;
 	unsigned long long int tmp;
 
 	str = (char *)malloc(sizeof(char) * 2);
@@ -23,7 +24,9 @@ char	*get_integer(long long int number,int base, char sep)
 	{
 		tmp = -number;
 		str[0] = '-';
-		str = ft_strjoinfree(str,ft_unsigned_itoa_base(tmp, base, sep));
+		ito = ft_unsigned_itoa_base(tmp, base, sep);
+		str = ft_strjoin(str,ito);
+		//free(ito);
 	}
 	else
 		str = ft_unsigned_itoa_base(number, base, sep);
@@ -33,13 +36,16 @@ char	*get_integer(long long int number,int base, char sep)
 char	*get_ptr(void *ptr)
 {
 	char *str;
+	char *tmp;
 
 	if (ptr != NULL)
 	{
 	str = ft_strnew(3);
 	str[0] = '0';
 	str[1] = 'x';
-	str = ft_strjoinfree(str, ft_unsigned_itoa_base((long long int)ptr, 16, 'a'));
+	tmp = ft_unsigned_itoa_base((long long int)ptr, 16, 'a');
+	str = ft_strjoin(str,tmp);
+	//free(tmp);
 	}
 	else
 	{

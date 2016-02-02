@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 19:17:33 by                   #+#    #+#             */
-/*   Updated: 2016/02/02 07:08:38 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/02 08:01:23 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char *apply_flag(t_data *data, char *str)
 		str = ft_strjoin(add,str);
 	}
 	if (isintab(data->drapeau, ' ') && !(isintab("sScCpuUoOxX",data->type))
-		&& (*str != '-' && *str != '+'))
+			&& (*str != '-' && *str != '+'))
 	{
 		*add = ' ';
 		str = ft_strjoin(add,str);
@@ -40,9 +40,8 @@ char	*apply_precision(t_data *data, char *str)
 	int length;
 
 	length = ft_strlen(str);
-
 	if (data->precision != -1 && data->precision < length && data->type == 'p'&&
-	   (isintab(data->drapeau,'#') || !ft_strncmp(str,"0x0",3)))
+			(isintab(data->drapeau,'#') || !ft_strncmp(str,"0x0",3)))
 	{
 		new = ft_strnew(data->precision + 2);
 		ft_memcpy(new,str,data->precision + 2);
@@ -54,13 +53,15 @@ char	*apply_precision(t_data *data, char *str)
 		ft_memcpy(new,str,data->precision);
 		return (new);
 	}
-	else if (data->precision > length && data->type != 's' && data->type != 'c')
+	else if (data->precision  > length && data->type != 's' && data->type != 'c')
 	{
 		new = ft_strnew(data->precision);
 		ft_memset(new, '0', data->precision);
 		ft_memcpy(new + data->precision - length, str, length);
 		return (new);
 	}
+	else if (data->precision == 0 && ft_atoi(str) == 0)
+		return (ft_strdup(""));
 	return (str);
 }
 
