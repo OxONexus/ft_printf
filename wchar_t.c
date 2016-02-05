@@ -6,7 +6,7 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 01:38:26 by                   #+#    #+#             */
-/*   Updated: 2016/02/02 02:49:45 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/04 15:22:45 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,17 @@ int		ft_wstrlen(wchar_t *str)
 	i = 0;
 	while(*str)
 	{
+		if (*str <= 0x7f)
+			i++;
+		else if (*str <= 0x7ff)
+			i +=2;
+		else if (*str <= 0xffff)
+			i += 3;
+		else if (*str <= 0x1fffff)
+			i += 4;
+		else
+			return (-1);
 		str++;
-		i++;
 	}
 	return (i);
 }
@@ -105,31 +114,3 @@ int		make_wchar(t_data *data, va_list *list)
 }
 
 
-int		print_wchar(wchar_t c)
-{
-	unsigned int wchar;
-
-	wchar = (unsigned int)c;
-	if (c <= 0x7f)
-	{
-		ft_putchar(c);
-		return (1);
-	}
-	else if (c <= 0x7ff)
-	{
-		print_2byte((unsigned int)wchar);
-		return (2);
-	}
-	else if (c <= 0xffff)
-	{
-		print_3byte((unsigned int)wchar);
-		return (3);
-	}
-	else if (c <= 0x1fffff)
-	{
-		print_4byte((unsigned int)wchar);
-		return (4);
-	}
-	else
-		return (-1);
-}

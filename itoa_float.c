@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   itoa_float.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/09 14:35:03 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/04 12:46:20 by apaget           ###   ########.fr       */
+/*   Created: 2016/02/02 09:39:14 by apaget            #+#    #+#             */
+/*   Updated: 2016/02/04 14:25:27 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "ft_printf.c"
 
-void	ft_putstr(const char *s)
+int		get_len_float( float nb, int precision)
 {
-	int	i;
+	if (nb < 9)
+		return (1 + precision);
+	else
+		return (get_len_float(nb / 10, precision));
+}
 
-	i = 0;
-	while (s[i])
-	{
-		ft_putchar(s[i]);
-		i++;
-	}
+char	*itoa_float(float nb, int precision)
+{
+	char *str;
+
+	str = ft_strnew(((get_len_float(nb) + 2) * sizeof(char));
 }

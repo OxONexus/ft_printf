@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:51:28 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/02 08:53:50 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/05 00:40:49 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,25 @@ char	*get_signed_var(t_data *data, va_list *list)
 		str = get_char(cast);
 	return (str);
 }
+void	debug_print_value(char *nb)
+{
+	while (*nb)
+	{
+		printf("%d == %c \n",*nb, *nb);
+		nb++;
+	}
+}
 
+void	ft_putstr2(char *str)
+{
+	while (*str)
+	{
+		//printf("%c\n",*str);
+		write(1, str, 1);
+		str++;
+	}
+	write(1, str, 1);
+}
 int		make_str(t_data *data, va_list *list)
 {
 	char *number;
@@ -68,7 +86,11 @@ int		make_str(t_data *data, va_list *list)
 		number = apply_flag(data,number);
 		number = apply_length(data,number);
 		les_flics(data, number);
-		ft_putstr(number);
+		if (ret == 1)
+			ft_putstr2(number);
+		else
+			ft_putstr(number);
+		//debug_print_value(number);
 		if (data->type == 'c' && *number == 0)
 			return (1);
 		else
@@ -96,39 +118,20 @@ int isintab(char *tab, char c)
 
 	
 
-void psuh_right(t_data *data, char *str, char *new)
+void psuh_right(t_data *data, char *str, char *new_str, int length)
 {
 	char fill;
 	char *tmp;
+	int len;
+
+	len = ft_strlen(str);
+	if (len < 1 && isintab("c",data->type))
+		len = 1;
 
 	fill = ' ';
-	if (data->comp == 1 && !isintab("sc", data->type) && data->precision != -1)
+	//if (data->comp == 1 && (data->precision != -1 || data->type == 's'))
+	if (data->comp == 1 && ((data->precision != -1 && data->precision < length) || isintab("sc",data->type)))
 		fill = '0';
-	ft_memset(new, fill, data->length);
-	ft_strcpy(new + data->length - ft_strlen(str), str);
-	/*
-	if ((*str == '-' || *str == '+' || *str == ' ') && data->comp == 1 &&
-			data->type != 'c' && data->precision != -1)
-	{
-		*new = *str;
-		ft_memset(new + 1, '0', data->length - (ft_strlen(str) > 1 ? ft_strlen(str) : 1));
-		ft_strcpy(new + data->length - (ft_strlen(str) > 1 ? ft_strlen(str) : 1) + 1, str + 1);
-	}
-	else if (*str != '-' && data->comp == 0)
-	{
-		ft_memset(new, ' ', data->length - (ft_strlen(str) > 1 ? ft_strlen(str) : 1));
-		ft_strcpy(new + data->length - (ft_strlen(str) > 1 ? ft_strlen(str) : 1),str);
-	}
-	else if (*str != '-' && data->comp == 1 && data->type != 'c'&&
-			data->precision != -1)
-	{
-		ft_memset(new, '0', data->length - (ft_strlen(str) > 1 ? ft_strlen(str) : 1));
-		ft_strcpy(new + data->length - (ft_strlen(str) > 1 ? ft_strlen(str) : 1),str);
-	}
-	else
-	{
-		ft_memset(new, ' ', data->length - (ft_strlen(str) > 1 ? ft_strlen(str) : 1));
-		ft_strcpy(new + data->length - (ft_strlen(str) > 1 ? ft_strlen(str) : 1),str);
-	}
-	*/
+	ft_memset(new_str, fill, data->length);
+	ft_memcpy(new_str + data->length - len, str, length);
 }

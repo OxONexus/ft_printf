@@ -6,12 +6,40 @@
 /*   By:  <>                                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 18:18:59 by                   #+#    #+#             */
-/*   Updated: 2016/02/01 17:04:30 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/02 10:34:01 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+int		print_wchar(wchar_t c)
+{
+	unsigned int wchar;
+
+	wchar = (unsigned int)c;
+	if (c <= 0x7f)
+	{
+		ft_putchar(c);
+		return (1);
+	}
+	else if (c <= 0x7ff)
+	{
+		print_2byte((unsigned int)wchar);
+		return (2);
+	}
+	else if (c <= 0xffff)
+	{
+		print_3byte((unsigned int)wchar);
+		return (3);
+	}
+	else if (c <= 0x1fffff)
+	{
+		print_4byte((unsigned int)wchar);
+		return (4);
+	}
+	else
+		return (-1);
+}
 void	print_2byte(unsigned int c)
 {
 	unsigned char byte[2];

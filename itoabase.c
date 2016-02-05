@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 22:09:46 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/02 08:50:52 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/04 20:16:51 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	corrige_Ox(char *str)
 
 	if (isintab(str,'x') || isintab(str,'X'))
 	{
+		while (*str == ' ')
+			str++;
 		while (str[i] != 'x' && str[i] != 'X')
 			i++;
 		tmp = str[1];
@@ -89,6 +91,8 @@ void	parse(char *str, char *deb, char c)
 	int i;
 
 	i = 0;
+	if (*str != c)
+		return;
 	while (str[i] == c)
 		i++;
 	if (str[i] == '-' || str[i] == '+' || str[i] == ' ')
@@ -104,7 +108,7 @@ void	corrige_sign(t_data *data, char *str)
 	int i;
 
 	i = 0;
-	if (isintab(str,'-') || isintab(str,' ') || isintab(str,'+'))
+	if (isintab(str,'-') || (isintab(str,' ') && isintab(data->drapeau, ' ')) || isintab(str,'+'))
 	{
 		if(ft_strlen(str) == data->length)
 		{

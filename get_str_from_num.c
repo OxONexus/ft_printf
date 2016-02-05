@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:05:58 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/02 07:22:05 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/04 12:27:50 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_ptr(void *ptr)
 
 	if (ptr != NULL)
 	{
-	str = ft_strnew(3);
+	str = ft_strnew(2);
 	str[0] = '0';
 	str[1] = 'x';
 	tmp = ft_unsigned_itoa_base((long long int)ptr, 16, 'a');

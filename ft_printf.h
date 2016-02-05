@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 21:22:45 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/01 18:08:53 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/05 01:27:03 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char		*apply_flag(t_data *data, char *str);
 void		fill_empty_data(t_data *data);
 void		init_data(t_data *data);
 int			make_str(t_data *data, va_list *list);
-void		psuh_right(t_data *data, char *str, char *new);
+void		psuh_right(t_data *data, char *str, char *new_str, int length);
 void		ft_putwchar_t(wchar_t c);
 int			ft_putwstr(wchar_t *str);
 wchar_t		*ft_wstr_new(int length);
@@ -82,5 +82,9 @@ void		print_2byte(unsigned int c);
 void		print_3byte(unsigned int c);
 void		print_4byte(unsigned int c);
 int		ft_printf(char *str, ...);
+void	ft_wstrncpy(wchar_t *dest, wchar_t *src, int n);
+char	*apply_ptr_precision(t_data *data, char *str);
+char	*apply_nbr_precision(t_data *data, char *str);
+char	*apply_string_precision(t_data *data, char *str);
 
 #endif

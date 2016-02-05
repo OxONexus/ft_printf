@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 20:38:03 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/02 03:21:53 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/02 12:03:36 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_drapeau(t_data *data, char **str)
 	{
 		if (**str == '%')
 		{
-			free(flag);
+			//free(flag);
 			return (NULL);
 		}
 		if (**str == '0')
