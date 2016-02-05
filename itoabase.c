@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 22:09:46 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 03:18:42 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/05 03:25:17 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,13 @@ void	parse(char *str, char *deb, char c)
 
 void	corrige_sign(t_data *data, char *str)
 {
-	char	*tmp;
 	int		i;
 
 	i = 0;
 	if (isintab(str, '-') || (isintab(str, ' ') && isintab(data->drapeau, ' '))
 			|| isintab(str, '+'))
 	{
-		if (ft_strlen(str) == data->length)
+		if ((int)ft_strlen(str) == data->length)
 		{
 			if (data->comp == 1)
 				parse(&str[i], str, '0');
@@ -76,7 +75,6 @@ void	corrige_sign(t_data *data, char *str)
 void	les_flics(t_data *data, char *str)
 {
 	int		i;
-	char	c;
 
 	i = 0;
 	if (isintab("pxX", data->type))

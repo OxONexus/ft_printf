@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 20:38:03 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 01:56:53 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/05 03:38:29 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	get_type(char **str)
 	int		i;
 	char	*type;
 
-	type = ft_strdup("SCDspdioOUuxXc");
+	type = ft_strdup("SCDspbdioOUuxXc");
 	i = 0;
 	while (**str == ' ')
 		(*str)++;

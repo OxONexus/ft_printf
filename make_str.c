@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 02:32:57 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 02:35:06 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/05 03:25:35 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int				make_str(t_data *data, va_list *list)
 void			psuh_right(t_data *data, char *str, char *new_str, int length)
 {
 	char	fill;
-	char	*tmp;
 	int		len;
 
 	len = ft_strlen(str);

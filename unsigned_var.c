@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 02:49:52 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 02:52:48 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/05 03:38:04 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char					*get_unsigned_var(t_data *data, va_list *list)
 	char				*str;
 
 	un_cast = 0;
+	str = NULL;
 	un_cast = va_arg(*list, unsigned long long);
 	un_cast = cast_unsigned_number(data, un_cast);
 	if (data->type == 'x')
@@ -50,6 +51,8 @@ char					*get_unsigned_var(t_data *data, va_list *list)
 		str = ft_unsigned_itoa_base(un_cast, 10, 'a');
 	else if (data->type == 'o' || data->type == 'O')
 		str = ft_unsigned_itoa_base(un_cast, 8, 'a');
+	else if (data->type == 'b')
+		str = ft_unsigned_itoa_base(un_cast, 2, 'a');
 	return (str);
 }
 

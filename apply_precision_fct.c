@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 01:25:17 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 01:30:47 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/05 03:30:05 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 char	*apply_precision(t_data *data, char *str)
 {
-	char	*new;
 	int		length;
-	char	*new_bis;
 
 	length = ft_strlen(str);
 	if (*str == '-' && isintab("diD", data->type))

@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 02:42:11 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 03:09:09 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/05 03:30:18 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int		apply_wlength(t_data *data, wchar_t *str)
 int		make_wwwwwwstr(t_data *data, va_list *list)
 {
 	wchar_t	*str;
-	wchar_t	*new_str;
 	wchar_t	*tmp;
 	int		length;
 
