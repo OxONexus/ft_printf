@@ -6,25 +6,13 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:01:39 by apaget            #+#    #+#             */
-/*   Updated: 2016/01/25 22:52:05 by                  ###   ########.fr       */
+/*   Updated: 2016/02/05 02:10:52 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	debug_print_conf(t_data *data)
-{
-	printf("---- DEBUG -----\n");
-	printf("le drapeau est 	: %c\n",*data->drapeau);
-	printf("la length est  	: %d\n",data->length);
-	printf("ligne comp ?    : %d\n",data->comp);
-	printf("la precision est: %d\n",data->precision);
-	printf("le mod est      : %c\n",data->modificateur);
-	printf("le type est     : %c\n",data->type);
-	printf("---- DEBUG -----\n");
-}
-
-char	*load_conf(char *str, t_data *data) // 999999
+char	*load_conf(char *str, t_data *data)
 {
 	if ((data->drapeau = get_drapeau(data, &str)) == NULL)
 		return (NULL);
@@ -51,7 +39,7 @@ void	fill_empty_data(t_data *data)
 {
 	if (data->precision == -1)
 	{
-		if(data->type != 'e' && data->type != 'E' && data->type != 'f' &&
+		if (data->type != 'e' && data->type != 'E' && data->type != 'f' &&
 		data->type != 's' && data->type != 'c' && data->type != 'S')
 			data->precision = 1;
 		else if (data->type == 'S' || data->type == 's')

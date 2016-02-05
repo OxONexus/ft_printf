@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_wstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <>                                        +#+  +:+       +#+        */
+/*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/22 16:33:14 by                   #+#    #+#             */
-/*   Updated: 2016/02/05 00:46:37 by apaget           ###   ########.fr       */
+/*   Created: 2016/02/05 02:42:11 by apaget            #+#    #+#             */
+/*   Updated: 2016/02/05 03:09:09 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ int		make_wstr(t_data *data, va_list *list)
 
 	str = NULL;
 	if (data->type == 'C' || data->type == 'c')
-	{
 		return (make_wchar(data, list));
-	}
 	else
 		return (make_wwwwwwstr(data, list));
 }
-
 
 int		get_pprecision(t_data *data, wchar_t *str)
 {
@@ -38,7 +35,7 @@ int		get_pprecision(t_data *data, wchar_t *str)
 		if (*str <= 0x7f)
 			i++;
 		else if (*str <= 0x7ff)
-			i +=2;
+			i += 2;
 		else if (*str <= 0xffff)
 			i += 3;
 		else if (*str <= 0x1fffff)
@@ -57,10 +54,9 @@ wchar_t	*apply_wprecision(t_data *data, wchar_t *str)
 	int		length;
 
 	length = ft_wstrlen(str);
-
 	if (data->precision != -1 && data->precision < length && data->type == 'S')
 	{
-		new_str = (wchar_t*)malloc(sizeof(wchar_t) *(data->precision + 1));
+		new_str = (wchar_t*)malloc(sizeof(wchar_t) * (data->precision + 1));
 		ft_memcpy(new_str, str, get_pprecision(data, str));
 		new_str[data->precision] = 0;
 		return (new_str);
@@ -68,58 +64,12 @@ wchar_t	*apply_wprecision(t_data *data, wchar_t *str)
 	else
 	{
 		new_str = (wchar_t*)malloc(sizeof(wchar_t) * (length + 1));
-		ft_memcpy(new_str,str,length * sizeof(wchar_t));
+		ft_memcpy(new_str, str, length * sizeof(wchar_t));
 		new_str[length] = 0;
 	}
 	return (new_str);
 }
 
-void	ft_wstrcpy(wchar_t *dest, wchar_t *src)
-{
-	while (*src)
-	{
-		*dest = *src;
-		dest++;
-		src++;
-	}
-}
-
-void	ft_wstrncpy(wchar_t *dest, wchar_t *src, int n)
-{
-	int i;
-
-	i = 0;
-	while (src[i] && i < n)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-}
-
-void	fill(wchar_t *str, wchar_t c, int len)
-{
-	int i;
-
-	i = 0;
-	while (i < len)
-	{
-		str[i] = c;
-		i++;
-	}
-}
-
-int		ft_wcharlen(wchar_t *str)
-{
-	int i;
-
-	i = 0;
-	while (*str)
-	{
-		i++;
-		str++;
-	}
-	return (i);
-}
 int		apply_wlength(t_data *data, wchar_t *str)
 {
 	wchar_t	*new_str;
@@ -129,7 +79,6 @@ int		apply_wlength(t_data *data, wchar_t *str)
 	t = L' ';
 	if (data->comp)
 		t = L'0';
-
 	length = ft_wstrlen(str);
 	new_str = (wchar_t*)malloc(sizeof(wchar_t) * (data->length + 1));
 	new_str[data->length] = 0;
@@ -142,12 +91,11 @@ int		apply_wlength(t_data *data, wchar_t *str)
 	}
 	else
 	{
-		fill(new_str, t ,data->length - ft_wstrlen(str));
-		ft_wstrcpy(new_str + data->length - ft_wstrlen(str) ,str);
+		fill(new_str, t, data->length - ft_wstrlen(str));
+		ft_wstrcpy(new_str + data->length - ft_wstrlen(str), str);
 		ft_putwstr(new_str);
 	}
 	length = ft_wstrlen(new_str);
-	//free(new_str);
 	return (length);
 }
 
@@ -170,6 +118,5 @@ int		make_wwwwwwstr(t_data *data, va_list *list)
 		return (apply_wlength(data, str));
 	else
 		length = ft_putwstr(str);
-	//free(str);
 	return (length);
 }

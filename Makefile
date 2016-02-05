@@ -21,6 +21,7 @@ SRC = ft_printf.c		\
 	  make_opt.c		\
 	  make_str.c		\
 	  print_wchar.c		\
+	  str_wchar_tool.c	\
 	  apply_precision_fct.c\
 	  make_wstr.c		\
 	  apply_fct.c		\

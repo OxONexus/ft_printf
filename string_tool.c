@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_tool.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <>                                        +#+  +:+       +#+        */
+/*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/28 19:28:39 by                   #+#    #+#             */
-/*   Updated: 2016/01/28 19:29:15 by                  ###   ########.fr       */
+/*   Created: 2016/02/05 02:48:37 by apaget            #+#    #+#             */
+/*   Updated: 2016/02/05 02:49:27 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	addtotab(char *tab, char c)
 	while (i < 4)
 	{
 		if (tab[i] == c)
-		return;
+			return ;
 		i++;
 	}
 	i = 0;
@@ -29,8 +29,22 @@ void	addtotab(char *tab, char c)
 		if (tab[i] == 0)
 		{
 			tab[i] = c;
-			return;
+			return ;
 		}
 		i++;
 	}
+}
+
+int		isintab(char *tab, char c)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (tab[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }

@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   print_wchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <>                                        +#+  +:+       +#+        */
+/*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/31 18:18:59 by                   #+#    #+#             */
-/*   Updated: 2016/02/02 10:34:01 by apaget           ###   ########.fr       */
+/*   Created: 2016/02/05 02:47:38 by apaget            #+#    #+#             */
+/*   Updated: 2016/02/05 02:47:54 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	ft_putstr_with_null(char *str)
+{
+	while (*str)
+	{
+		write(1, str, 1);
+		str++;
+	}
+	write(1, str, 1);
+}
 
 int		print_wchar(wchar_t c)
 {
@@ -40,6 +50,7 @@ int		print_wchar(wchar_t c)
 	else
 		return (-1);
 }
+
 void	print_2byte(unsigned int c)
 {
 	unsigned char byte[2];

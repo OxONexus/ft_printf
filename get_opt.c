@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 20:38:03 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/02 12:03:36 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/05 01:56:53 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_drapeau(t_data *data, char **str)
 	{
 		if (**str == '%')
 		{
-			//free(flag);
+			free(flag);
 			return (NULL);
 		}
 		if (**str == '0')
@@ -41,7 +41,7 @@ char	*get_drapeau(t_data *data, char **str)
 
 int		get_length(char **str, t_data *data)
 {
-	while(**str == ' ')
+	while (**str == ' ')
 		(*str)++;
 	if (**str == '0')
 	{
@@ -56,7 +56,7 @@ int		get_length(char **str, t_data *data)
 
 int		get_precision(char **str)
 {
-	while(**str == ' ')
+	while (**str == ' ')
 		(*str)++;
 	if (**str == '.')
 	{
@@ -86,16 +86,17 @@ char	get_modificateur(char **str)
 		(*str)++;
 		return (mod);
 	}
-		return (0);
+	return (0);
 }
 
 char	get_type(char **str)
 {
-	int i;
-	char type[] = "SCDspdioOUuxXc";
+	int		i;
+	char	*type;
 
+	type = ft_strdup("SCDspdioOUuxXc");
 	i = 0;
-	while(**str == ' ')
+	while (**str == ' ')
 		(*str)++;
 	while (type[i])
 	{
@@ -103,5 +104,6 @@ char	get_type(char **str)
 			return (**str);
 		i++;
 	}
+	free(type);
 	return (0);
 }

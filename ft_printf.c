@@ -6,18 +6,11 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:20:27 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 01:46:46 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/05 02:20:36 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// sSpdDiuOuUxXcC
-// test passer sScCdixXpuU
-// 			DoO
-
 #include "ft_printf.h"
-
-#define PRINT(x,y) printf(x,y); ; printf("\n") ; ft_printf(x,y); printf("\n\n");
-
 
 int		make_void(t_data *data, char c)
 {
@@ -30,26 +23,31 @@ int		make_void(t_data *data, char c)
 	return (ft_strlen(str));
 }
 
+char	*parse_conf(char *str)
+{
+	while (isintab("# +-", *str))
+		str++;
+	while (ft_isdigit(*str))
+		str++;
+	if (*str == '.')
+	{
+		str++;
+		while (ft_isdigit(*str))
+			str++;
+	}
+	while (*str && *str == ' ')
+		str++;
+	return (str);
+}
+
 char	*get_conf(char *str, int *count, va_list *list)
 {
-	t_data data;
-	char *tmp;
+	t_data	data;
+	char	*tmp;
 
 	if ((tmp = load_conf(str, &data)) == NULL)
 	{
-		//chat
-		while (isintab("# +-", *str))
-			str++;
-		while (ft_isdigit(*str))
-			str++;
-		if (*str == '.')
-		{
-			str++;
-			while (ft_isdigit(*str))
-				str++;
-		}
-		while (*str && *str == ' ')
-			str++;
+		str = parse_conf(str);
 		if (data.length > 0)
 		{
 			*count += make_void(&data, *str);
@@ -57,27 +55,25 @@ char	*get_conf(char *str, int *count, va_list *list)
 		}
 		else if (*str == '%')
 		{
-		ft_putchar('%');
-		(*count)++;
+			ft_putchar('%');
+			(*count)++;
 		}
 	}
 	else
 	{
 		str = tmp;
 		fill_empty_data(&data);
-		*count += make_str(&data, list);
+		*count += print_value_of_data(&data, list);
 	}
-
 	return (str - 1);
 }
 
 int		ft_printf(char *str, ...)
 {
-	int count_print_char;
-	char *tmp;
-	va_list list;
-	va_start(list, str);
+	int		count_print_char;
+	va_list	list;
 
+	va_start(list, str);
 	count_print_char = 0;
 	while (*str && ft_isascii(*str))
 	{

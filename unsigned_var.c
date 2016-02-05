@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   unsigned_var.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <>                                        +#+  +:+       +#+        */
+/*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/28 19:22:48 by                   #+#    #+#             */
-/*   Updated: 2016/02/02 10:34:11 by apaget           ###   ########.fr       */
+/*   Created: 2016/02/05 02:49:52 by apaget            #+#    #+#             */
+/*   Updated: 2016/02/05 02:52:48 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-unsigned long long int cast_unsigned_number(t_data *data, unsigned long long nb)
+unsigned long long int	cast_unsigned_number(t_data *data,
+		unsigned long long nb)
 {
-	if (isintab("OU",data->type))
+	if (isintab("OU", data->type))
 		nb = (unsigned long long)nb;
 	else if (data->modificateur == LL)
 		nb = (unsigned long long)nb;
@@ -33,13 +34,12 @@ unsigned long long int cast_unsigned_number(t_data *data, unsigned long long nb)
 	return (nb);
 }
 
-char	*get_unsigned_var(t_data *data, va_list *list)
+char					*get_unsigned_var(t_data *data, va_list *list)
 {
-	unsigned long long	un_cast;;
+	unsigned long long	un_cast;
 	char				*str;
 
 	un_cast = 0;
-
 	un_cast = va_arg(*list, unsigned long long);
 	un_cast = cast_unsigned_number(data, un_cast);
 	if (data->type == 'x')
@@ -53,11 +53,12 @@ char	*get_unsigned_var(t_data *data, va_list *list)
 	return (str);
 }
 
-char *ft_unsigned_itoa_base(unsigned long long int number, int base, char sep)
+char					*ft_unsigned_itoa_base(unsigned long long int number,
+		int base, char sep)
 {
-	char *str;
-	char *tmp;
-	int len;
+	char	*str;
+	char	*tmp;
+	int		len;
 
 	len = get_str_len_of_num(number, base);
 	str = (char*)malloc(sizeof(char) * len + 1);
@@ -65,7 +66,6 @@ char *ft_unsigned_itoa_base(unsigned long long int number, int base, char sep)
 	str[len] = '\0';
 	while (len > 0)
 	{
-
 		*str = get_unsigned_str(number, base, len);
 		if (*str > 9)
 			*str += sep - 10;
@@ -77,7 +77,8 @@ char *ft_unsigned_itoa_base(unsigned long long int number, int base, char sep)
 	return (tmp);
 }
 
-int		get_unsigned_str(unsigned long long int number, int base, int i)
+int						get_unsigned_str(unsigned long long int number,
+		int base, int i)
 {
 	if (i == 1)
 		return (number % base);
