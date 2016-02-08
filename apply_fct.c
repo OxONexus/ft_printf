@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 01:32:49 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 03:41:25 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/06 20:50:17 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*apply_length(t_data *data, char *str)
 		if (isintab(data->drapeau, '-'))
 		{
 			ft_memset(new, ' ', data->length);
-			ft_strncpy(new, str, ft_strlen(str));
+			ft_memcpy(new, str, length);
 		}
 		else
 			psuh_right(data, str, new, length);

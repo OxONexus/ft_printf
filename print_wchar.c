@@ -6,20 +6,22 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 02:47:38 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 03:35:41 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/06 20:49:02 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr_with_null(char *str)
+void	ft_putstr_with_null(char *str, int size)
 {
-	while (*str)
+	int i;
+
+	i = 0;
+	while (i < size)
 	{
-		write(1, str, 1);
-		str++;
+		write(1, &str[i], 1);
+		i++;
 	}
-	write(1, str, 1);
 }
 
 int		print_wchar(wchar_t c)
@@ -60,7 +62,7 @@ void	print_2byte(unsigned int c)
 	byte[1] = ((c >> 6) << 27) >> 27;
 	printed_byte = (49280 >> 8) | byte[1];
 	write(1, &printed_byte, 1);
-	printed_byte = (49280 << 24) >> 24 | byte[0];
+	printed_byte = (49280ll << 24) >> 24 | byte[0];
 	write(1, &printed_byte, 1);
 }
 
@@ -74,9 +76,9 @@ void	print_3byte(unsigned int c)
 	byte[2] = ((c >> 12) << 28) >> 28;
 	printed_byte = (14712960 >> 16) | byte[2];
 	write(1, &printed_byte, 1);
-	printed_byte = (14712960 << 16) >> 24 | byte[1];
+	printed_byte = (14712960ll << 16) >> 24 | byte[1];
 	write(1, &printed_byte, 1);
-	printed_byte = (14712960 << 24) >> 24 | byte[0];
+	printed_byte = (14712960ll << 24) >> 24 | byte[0];
 	write(1, &printed_byte, 1);
 }
 

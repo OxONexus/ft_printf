@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 20:38:03 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 03:38:29 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/08 13:15:42 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,12 @@ char	*get_drapeau(t_data *data, char **str)
 	return (flag);
 }
 
-int		get_length(char **str, t_data *data)
+int		get_length(char **str, t_data *data, va_list *list)
 {
+	int length;
+	char *tmp;
+
+	length = 0;
 	while (**str == ' ')
 		(*str)++;
 	if (**str == '0')
@@ -49,17 +53,37 @@ int		get_length(char **str, t_data *data)
 		if (ft_isdigit(*(*str + 1)))
 			return (atoi(*str + 1));
 	}
+	if (**str == '*')
+	{
+		if ((length = va_arg(*list, int)) >= 0)
+			return (length);
+		else
+		{
+			addtotab(data->drapeau, '-');
+			return (-length);
+		}
+	}
 	if (ft_isdigit(**str))
 		return (atoi(*str));
 	return (-1);
 }
 
-int		get_precision(char **str)
+int		get_precision(char **str, va_list *list)
 {
+	int length;
+
+	length = 0;
 	while (**str == ' ')
 		(*str)++;
 	if (**str == '.')
 	{
+		if (*(*str + 1) == '*')
+		{
+			if ((length = va_arg(*list, int)) >= 0)
+				return (length);
+			else
+				return (-2);
+		}
 		return (atoi((*str + 1)));
 	}
 	return (-1);

@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 02:32:57 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 03:25:35 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/06 20:51:52 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ int				make_str(t_data *data, va_list *list)
 {
 	char	*number;
 	int		ret;
+	int		length;
 
 	ret = 0;
+	length = 0;
 	number = get_var(data, list);
 	if (*number == 0 && data->type == 'c')
 		ret = 1;
@@ -60,7 +62,13 @@ int				make_str(t_data *data, va_list *list)
 	number = apply_length(data, number);
 	les_flics(data, number);
 	if (ret == 1)
-		ft_putstr_with_null(number);
+	{
+		length =  (int)ft_strlen(number) > data->length ? (int)ft_strlen(number) : data->length;
+		if (length <= 0)
+			length = 1;
+		ft_putstr_with_null(number,length);
+		return (length);
+	}
 	else
 		ft_putstr(number);
 	if (data->type == 'c' && *number == 0)

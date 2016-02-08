@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 02:20:27 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 02:20:36 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/06 17:45:48 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,15 @@ char	*parse_conf(char *str)
 		str++;
 	while (ft_isdigit(*str))
 		str++;
+	if (*str == '*')
+		str++;
 	if (*str == '.')
 	{
 		str++;
 		while (ft_isdigit(*str))
 			str++;
+	if (*str == '*')
+		str++;
 	}
 	while (*str && *str == ' ')
 		str++;
@@ -45,7 +49,7 @@ char	*get_conf(char *str, int *count, va_list *list)
 	t_data	data;
 	char	*tmp;
 
-	if ((tmp = load_conf(str, &data)) == NULL)
+	if ((tmp = load_conf(str, &data, list)) == NULL)
 	{
 		str = parse_conf(str);
 		if (data.length > 0)

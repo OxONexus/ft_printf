@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 21:22:45 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 03:28:51 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/06 20:50:10 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct			s_data
 	void				*data;
 }						t_data;
 
-char					*load_conf(char *str, t_data *data);
+char					*load_conf(char *str, t_data *data, va_list *list);
 char					*apply_diezzz(t_data *data, char *str);
 void					debug_print_conf(t_data *data);
 char					*get_unsigned_integer(long long int number, int base,
@@ -48,11 +48,11 @@ char					get_type(char **str);
 char					*get_drapeau(t_data *data, char **str);
 int						get_str(long long int number, int base, int i);
 char					*get_float(t_data *data, float number);
-int						get_precision(char **str);
+int						get_precision(char **str, va_list *list);
 char					get_modificateur(char **str);
 char					*get_ptr(void *ptr);
 char					*get_integer(long long int number, int base, char sep);
-int						get_length(char **str, t_data *data);
+int						get_length(char **str, t_data *data, va_list *list);
 char					*ft_itoa_base(long long int number, int base, char sep);
 char					*get_var(t_data *data, va_list *list);
 int						get_str_len_of_num(unsigned long long int number,
@@ -96,7 +96,7 @@ int						print_value_of_data(t_data *data, va_list *list);
 int						make_wstr(t_data *data, va_list *list);
 char					*get_signed_var(t_data *data, va_list *list);
 long long int			cast_number(t_data *data, long long int cast);
-void					ft_putstr_with_null(char *str);
+void					ft_putstr_with_null(char *str, int size);
 void					ft_wstrcpy(wchar_t *dest, wchar_t *src);
 void					ft_wstrncpy(wchar_t *dest, wchar_t *src, int n);
 void					fill(wchar_t *str, wchar_t c, int len);

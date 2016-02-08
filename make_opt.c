@@ -6,25 +6,43 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:01:39 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/05 02:10:52 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/08 13:22:09 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*load_conf(char *str, t_data *data)
+char	*load_conf(char *str, t_data *data, va_list *list)
 {
 	if ((data->drapeau = get_drapeau(data, &str)) == NULL)
 		return (NULL);
-	if ((data->length = get_length(&str, data)) != -1)
+	if ((data->length = get_length(&str, data, list)) != -1)
 	{
-		while (ft_isdigit(*str))
+		if (ft_isdigit(*str))
+		{
+			while (ft_isdigit(*str))
+				str++;
+		}
+		else if (*str == '*')
+		{
 			str++;
+			while (ft_isdigit(*str))
+				str++;
+		}
+		if (*str == '*')
+		{
+			data->length = get_length(&str, data, list);
+			str++;
+			while (ft_isdigit(*str))
+				str++;
+		}
 	}
-	if ((data->precision = get_precision(&str)) != -1)
+	if ((data->precision = get_precision(&str, list)) != -1)
 	{
 		str++;
 		while (ft_isdigit(*str))
+			str++;
+		if (*str == '*')
 			str++;
 	}
 	data->modificateur = get_modificateur(&str);
@@ -47,6 +65,8 @@ void	fill_empty_data(t_data *data)
 		else
 			data->precision = 6;
 	}
+	if (data->precision == -2 && data->type == 's')
+		data->precision = -1;
 }
 
 void	init_data(t_data *data)
