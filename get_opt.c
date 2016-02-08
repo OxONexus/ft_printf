@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 20:38:03 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/08 13:15:42 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/08 15:16:23 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ int		get_length(char **str, t_data *data, va_list *list)
 	}
 	if (**str == '*')
 	{
-		if ((length = va_arg(*list, int)) >= 0)
+		if ((length = va_arg(*list, int)) > 0)
 			return (length);
-		else
+		else if (!(length == 0 && ft_isdigit(*(*str + 1))))
 		{
 			addtotab(data->drapeau, '-');
 			return (-length);
 		}
+		else
+			return (ft_atoi(*str + 1));
 	}
 	if (ft_isdigit(**str))
 		return (atoi(*str));
@@ -118,7 +120,7 @@ char	get_type(char **str)
 	int		i;
 	char	*type;
 
-	type = ft_strdup("SCDspbdioOUuxXc");
+	type = ft_strdup("SCDspbfFdioOUuxXc");
 	i = 0;
 	while (**str == ' ')
 		(*str)++;

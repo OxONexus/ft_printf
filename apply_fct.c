@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 01:32:49 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/06 20:50:17 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/08 15:39:54 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char	*get_var(t_data *data, va_list *list)
 
 	if (ft_strchr("diDc", data->type) != NULL)
 		str = get_signed_var(data, list);
+	else if (data->type == 'f' || data->type == 'F')
+		str = get_float_str(data, list);
 	else if (ft_strchr("boOxXuU", data->type) != NULL)
 		str = get_unsigned_var(data, list);
 	else

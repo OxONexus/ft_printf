@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:01:39 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/08 13:22:09 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/08 15:41:30 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char	*load_conf(char *str, t_data *data, va_list *list)
 {
+	int length;
 	if ((data->drapeau = get_drapeau(data, &str)) == NULL)
 		return (NULL);
 	if ((data->length = get_length(&str, data, list)) != -1)
@@ -26,12 +27,15 @@ char	*load_conf(char *str, t_data *data, va_list *list)
 		else if (*str == '*')
 		{
 			str++;
+			if ((length = get_length(&str, data, list)) != -1)
+				data->length = length;
 			while (ft_isdigit(*str))
 				str++;
 		}
 		if (*str == '*')
 		{
-			data->length = get_length(&str, data, list);
+			length = get_length(&str, data, list);
+			data->length = length;
 			str++;
 			while (ft_isdigit(*str))
 				str++;
@@ -58,7 +62,8 @@ void	fill_empty_data(t_data *data)
 	if (data->precision == -1)
 	{
 		if (data->type != 'e' && data->type != 'E' && data->type != 'f' &&
-		data->type != 's' && data->type != 'c' && data->type != 'S')
+		data->type != 's' && data->type != 'c' && data->type != 'S' &&
+		data->type != 'F')
 			data->precision = 1;
 		else if (data->type == 'S' || data->type == 's')
 			data->precision = -1;

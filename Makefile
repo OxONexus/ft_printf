@@ -16,6 +16,7 @@ NAME = libftprintf.a
 
 SRC = ft_printf.c		\
 	  get_opt.c			\
+	  connarddefloat.c	\
 	  get_str_from_num.c\
 	  itoabase.c		\
 	  make_opt.c		\

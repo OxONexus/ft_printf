@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 21:22:45 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/06 20:50:10 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/08 16:51:11 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,7 @@ void					ft_wstrcpy(wchar_t *dest, wchar_t *src);
 void					ft_wstrncpy(wchar_t *dest, wchar_t *src, int n);
 void					fill(wchar_t *str, wchar_t c, int len);
 int						ft_wcharlen(wchar_t *str);
+char					*itoa_float(double nb, int precision);
+char	*get_float_str(t_data *data, va_list *list);
 
 #endif
