@@ -6,7 +6,7 @@
 /*   By: apaget <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/08 15:25:59 by apaget            #+#    #+#             */
-/*   Updated: 2016/02/08 16:56:00 by apaget           ###   ########.fr       */
+/*   Updated: 2016/02/09 16:44:17 by apaget           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_float_str(t_data *data, va_list *list)
 {
-	float f;
+	double f;
 	char *str;
 
 	f = va_arg(*list, double);
@@ -22,7 +22,7 @@ char	*get_float_str(t_data *data, va_list *list)
 	return (str);
 }
 
-int		get_len_float( double nb, int precision)
+int		get_len_float(double nb, int precision)
 {
 	if (nb <= 9 && nb >= -9)
 		return (1 + precision);
@@ -30,7 +30,7 @@ int		get_len_float( double nb, int precision)
 		return (get_len_float(nb / 10, precision));
 }
 
-int		power_float(unsigned long long nb, int x)
+int		power_float(double nb, int x)
 {
 	if (x == 0)
 		return (0);
@@ -46,35 +46,40 @@ char	*itoa_float(double nb, int precision)
 {
 	char *str;
 	char *tmp;
-	char *neg;
-	float f;
+	char neg[2];
+	double f;
 	char *tmp2;
 	long long unsigned int ent;
 
 	str = ft_strnew(get_len_float(nb, precision) + 2);
 	tmp2 = str;
-	ent = (int)nb;
+	ent = 0;
+	ft_bzero(neg, 2);
 	if (nb < 0)
 	{
-		neg = ft_strdup("-");
-		ent = (int)-nb;
+		neg[0] = '-';
+		ent = (long unsigned)-nb;
 	}
 	else
-	neg = ft_strdup("");
+	{
+		ent = (long unsigned)nb;
+	}
 	tmp = ft_unsigned_itoa_base(ent, 10, 0);
 	ft_strcpy(str, tmp);
 	str += ft_strlen(tmp);
 	*str = '.';
 	if (nb >= 0)
-		f = (float)(nb - (float)ent) > 0 ? (nb - (float)ent) : ((float)ent - nb);
+		f = (nb - ent) > 0 ? (nb - ent) : (ent - nb);
 	else
-		f = (float)(nb + (float)ent) > 0 ? ((float)ent + nb) : -(nb + (float)ent);
+		f = (nb + ent) > 0 ? (ent + nb) : -(nb + ent);
 	free(tmp);
 	ent = power_float(f,precision);
 	tmp = ft_unsigned_itoa_base(ent, 10, 0);
 	str++;
 	ft_strcpy(str, tmp);
 	str[ft_strlen(tmp)] = 0;
-	return (ft_strjoin(neg,tmp2));
+	free(tmp);
+
+	return (neg[0] ? ft_strjoin(neg, tmp2) : tmp2);
 }
 
